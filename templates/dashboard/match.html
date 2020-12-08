@@ -1,0 +1,39 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static el_pagination_tags %}
+
+{% block pagetitle %} - Matches{% endblock pagetitle %}
+
+{% block content %}
+<div class="tab-content" id="v-pills-tabContent">
+  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12">
+               <p>Matches</p>
+               <p><a href="{% url 'dashboard:upload-match' %}"> Upload Match</a></p>
+               <table class="product-table">
+                 <th>Sl.No</th>
+                 <th>Team 1</th>
+                 <th>Team 2</th>
+                 {% paginate 10 list %}
+                 {% get_pages %}
+                 {% for item in list %}
+                   <tr>
+                       <th scope="row">{{ pages.current_start_index|add:forloop.counter0 }}</th>
+                       <td>{{ item.team1 }} </td>
+                       <td>{{ item.team2 }} </td>
+                   </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+          {% show_pages %}
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+{% endblock extrajs %}

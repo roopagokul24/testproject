@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static   %}
+
+{% block pagetitle %} - IPL{% endblock pagetitle %}
+
+{% block extracss %}
+<style>
+#myDIV , #myDIV2,#myDIV3{
+  width: 100%;
+  padding: 1em;
+  text-align: left;
+  background-color: lightblue;
+  margin-top: 20px;
+
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="tab-content" id="v-pills-tabContent">
+  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12">
+              <div>
+              <span><button onclick="myFunction()">+</button> <span>Top 4 teams in terms of wins</span></span>
+               <div id="myDIV">
+                 {% for item in winner_dict_sorted %}
+                  <p>{{item}}</p>
+                 {% endfor %}
+                </div>
+                </div>
+                <div>
+                  <span><button onclick="myFunction2()">+</button> <span>Which team won the most number of tosses in the season?</span></span>
+                   <div id="myDIV2">
+                     {% for item in winner_dict_sorted %}
+                      <p>{{item}}</p>
+                     {% endfor %}
+                    </div>
+                </div>
+                <div>
+                  <span><button onclick="myFunction3()">+</button> <span>Which player won the maximum number of Player of the Match awards in the whole season</span></span>
+                   <div id="myDIV3">
+                     {% for item in player_of_match_dict_sorted %}
+                      <p>{{item}}</p>
+                     {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+<script>
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function myFunction2() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function myFunction3() {
+  var x = document.getElementById("myDIV3");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+{% endblock extrajs %}

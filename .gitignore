@@ -1,0 +1,8 @@
+*.pyc
+*.sqlite3
+*.wpr
+*.wpu
+*.env
+media
+static
+*.rdb
