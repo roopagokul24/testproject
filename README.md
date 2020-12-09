@@ -20,3 +20,11 @@
 	1. Activate testproject_env
 	2. source local.env
 	3. python manage.py runserver
+*admin interface : /admin
+*super user:
+ python manage.py createsuperuser
+ 
+ project
+ --------
+ * In the dashboard you can upload data (xlsx file is used, sample file is attached with email)
+ * In Home page you can choose seasons and get corresponding results.
