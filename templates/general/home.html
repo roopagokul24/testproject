@@ -20,7 +20,15 @@
   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
       <div class="container">
         <div class="row">
+            <div class="col-12 col-md-6">
+              Choose Season<select id="season" class="form-control" >
+                          <option value="2017">2017</option>
+                          <option value="2018">2018</option>
+                          <option value="2019">2019</option>
+                </select>
+              </div>
             <div class="col-12 col-md-12">
+
               <div>
               <span><button onclick="myFunction()">+</button> <span>Top 4 teams in terms of wins</span></span>
                <div id="myDIV">
@@ -32,7 +40,7 @@
                 <div>
                   <span><button onclick="myFunction2()">+</button> <span>Which team won the most number of tosses in the season?</span></span>
                    <div id="myDIV2">
-                     {% for item in winner_dict_sorted %}
+                     {% for item in toss_winner_sorted %}
                       <p>{{item}}</p>
                      {% endfor %}
                     </div>
@@ -41,6 +49,14 @@
                   <span><button onclick="myFunction3()">+</button> <span>Which player won the maximum number of Player of the Match awards in the whole season</span></span>
                    <div id="myDIV3">
                      {% for item in player_of_match_dict_sorted %}
+                      <p>{{item}}</p>
+                     {% endfor %}
+                    </div>
+                </div>
+                <div>
+                  <span><button onclick="myFunction3()">+</button> <span>Which team won max matches in the whole season?</span></span>
+                   <div id="myDIV3">
+                     {% for item in winner %}
                       <p>{{item}}</p>
                      {% endfor %}
                     </div>
@@ -79,4 +95,20 @@ function myFunction3() {
   }
 }
 </script>
+<script>
+        var season = Cookies.get("season");
+        if(season != null){
+          $("#season").val(season);
+        }
+        $(document).on("change", "#season", function() {
+            var season = $(this).find("option:selected");
+            var season_val = season.val();
+            Cookies.set('season', season_val);
+            window.location.reload()
+            var season = Cookies.get("season");
+            console.log(season)
+            $("#season").val(season);
+
+          });
+      </script>
 {% endblock extrajs %}
