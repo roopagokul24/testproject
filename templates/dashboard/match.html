@@ -11,17 +11,45 @@
             <div class="col-12 col-md-12">
                <p>Matches</p>
                <p><a href="{% url 'dashboard:upload-match' %}"> Upload Match</a></p>
-               <table class="product-table">
+               <table class="product-table table-responsive">
                  <th>Sl.No</th>
+                 <th>season</th>
+                 <th>city</th>
                  <th>Team 1</th>
                  <th>Team 2</th>
+                 <th>toss_winner</th>
+                 <th>toss_decision</th>
+                 <th>result</th>
+                 <th>dl_applied</th>
+                 <th>winner</th>
+                 <th>win_by_runs</th>
+                 <th>win_by_wickets</th>
+                 <th>player_of_match</th>
+                 <th>Venue</th>
+                 <th>umpire1</th>
+                 <th>umpire2</th>
+                 <th>umpire3</th>
                  {% paginate 10 list %}
                  {% get_pages %}
                  {% for item in list %}
                    <tr>
                        <th scope="row">{{ pages.current_start_index|add:forloop.counter0 }}</th>
+                       <td>{{ item.season }} </td>
+                       <td>{{ item.city }} </td>
                        <td>{{ item.team1 }} </td>
                        <td>{{ item.team2 }} </td>
+                       <td>{{ item.toss_winner }} </td>
+                       <td>{{ item.toss_decision }} </td>
+                       <td>{{ item.result }} </td>
+                       <td>{{ item.dl_applied }} </td>
+                       <td>{{ item.winner }} </td>
+                       <td>{{ item.win_by_runs }} </td>
+                       <td>{{ item.win_by_wickets }} </td>
+                       <td>{{ item.player_of_match }} </td>
+                       <td>{{ item.venue }} </td>
+                       <td>{{ item.umpire1 }} </td>
+                       <td>{{ item.umpire2 }} </td>
+                       <td>{{ item.umpire3 }} </td>
                    </tr>
                 {% endfor %}
                 </table>

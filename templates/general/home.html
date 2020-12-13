@@ -5,13 +5,13 @@
 
 {% block extracss %}
 <style>
-#myDIV , #myDIV2,#myDIV3{
+#myDIV , #myDIV2, #myDIV3, #myDIV4, #myDIV5,  #myDIV6,  #myDIV7,  #myDIV8,  #myDIV9,  #myDIV10{
   width: 100%;
   padding: 1em;
   text-align: left;
   background-color: lightblue;
   margin-top: 20px;
-
+  display:none;
 }
 </style>
 {% endblock %}
@@ -30,7 +30,7 @@
             <div class="col-12 col-md-12">
 
               <div>
-              <span><button onclick="myFunction()">+</button> <span>Top 4 teams in terms of wins</span></span>
+              <span><button id="queOne" >+</button> <span>Top 4 teams in terms of wins</span></span>
                <div id="myDIV">
                  {% for item in winner_dict_sorted %}
                   <p>{{item}}</p>
@@ -38,7 +38,7 @@
                 </div>
                 </div>
                 <div>
-                  <span><button onclick="myFunction2()">+</button> <span>Which team won the most number of tosses in the season?</span></span>
+                  <span><button id="queTwo">+</button> <span>Which team won the most number of tosses in the season?</span></span>
                    <div id="myDIV2">
                      {% for item in toss_winner_sorted %}
                       <p>{{item}}</p>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div>
-                  <span><button onclick="myFunction3()">+</button> <span>Which player won the maximum number of Player of the Match awards in the whole season</span></span>
+                  <span><button id="queThree">+</button> <span>Which player won the maximum number of Player of the Match awards in the whole season</span></span>
                    <div id="myDIV3">
                      {% for item in player_of_match_dict_sorted %}
                       <p>{{item}}</p>
@@ -54,11 +54,43 @@
                     </div>
                 </div>
                 <div>
-                  <span><button onclick="myFunction3()">+</button> <span>Which team won max matches in the whole season?</span></span>
-                   <div id="myDIV3">
+                  <span><button id="queFour">+</button> <span>Which team won max matches in the whole season?</span></span>
+                   <div id="myDIV4">
                      {% for item in winner %}
                       <p>{{item}}</p>
                      {% endfor %}
+                    </div>
+                </div>
+                <div>
+                  <span><button id="queFive">+</button> <span>Which location has the most number of wins for the top team?</span></span>
+                   <div id="myDIV5">
+                     {% for item in most_wins_top_team %}
+                      <p>{{item}}</p>
+                     {% endfor %}
+                    </div>
+                </div>
+
+                <div>
+                  <span><button id="queSix">+</button> <span>Which % of teams decided to bat when they won the toss</span></span>
+                   <div id="myDIV6">
+                    <p>{{percentage}}%</p>
+                    </div>
+                </div>
+
+                <div>
+                  <span><button id="queSeven">+</button> <span>Which location hosted most number of matches and win % and loss % for the season?</span></span>
+                   <div id="myDIV7">
+                     {% for item in most_matches %}
+                    <p>{{item}}</p>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div>
+                  <span><button id="queEight">+</button> <span>Which team won by the highest margin of runs  for the season?</span></span>
+                   <div id="myDIV8">
+                     {% for item in run_margin_highest_match %}
+                    <span>{{item.winner}}{% if not forloop.last %},{% endif%}</span>
+                    {% endfor %}
                     </div>
                 </div>
             </div>
@@ -70,30 +102,28 @@
 
 {% block extrajs %}
 <script>
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
+$("#queOne").click(function() { myFunction("myDIV"); });
+$("#queTwo").click(function() { myFunction("myDIV2"); });
+$("#queThree").click(function() { myFunction("myDIV3"); });
+$("#queFour").click(function() { myFunction("myDIV4"); });
+$("#queFive").click(function() { myFunction("myDIV5"); });
+$("#queSix").click(function() { myFunction("myDIV6"); });
+$("#queSeven").click(function() { myFunction("myDIV7"); });
+$("#queEight").click(function() { myFunction("myDIV8"); });
+
+function myFunction(x) {
+  var x = document.getElementById(x);
+  if ($(x).css('display') == "none") {
+    $(x).css('display',"block");
   } else {
-    x.style.display = "none";
+    $(x).css('display',"none");
   }
+
 }
-function myFunction2() {
-  var x = document.getElementById("myDIV2");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-function myFunction3() {
-  var x = document.getElementById("myDIV3");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
+
+
+
+
 </script>
 <script>
         var season = Cookies.get("season");

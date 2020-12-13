@@ -265,7 +265,7 @@ class UploadMatchView(FormView):
             season = worksheet[index].value
 
             index = "B"+str(i)
-            date = worksheet[index].value
+            city = worksheet[index].value
 
             # index = "C"+str(i)
             # date = worksheet[index].value
@@ -314,6 +314,7 @@ class UploadMatchView(FormView):
 
             obj = Match()
             obj.season = season
+            obj.city = city
             # obj.date = date
             obj.team1 =  Team.objects.filter(name=team1).first()
             obj.team2 =  Team.objects.filter(name=team2).first()
