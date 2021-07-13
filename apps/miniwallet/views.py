@@ -174,3 +174,65 @@ class AddAmountToWalletAPI(APIView):
         return Response(response)
 
 
+class UseAmountFromWalletAPI(APIView):
+    serializer_class = DepositSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        response = {}
+        user = self.request.user
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            data_dict = serializer.data
+            reference_id = data_dict['reference_id']
+            amount = data_dict['amount']
+            try:
+                wallet = Wallet.objects.get(user=user)
+                if wallet.enable == True:
+                    try:
+                        withdrawal_obj = Withdrawal.objects.get(reference_id=reference_id)
+                        response = {
+                                'errors': "Invalid reference ID!!",
+                                'status': status.HTTP_400_BAD_REQUEST
+                                }
+                    except Withdrawal.DoesNotExist:
+                        if amount <= wallet.amount :
+                            withdrawal_obj = Withdrawal()
+                            withdrawal_obj.user = user
+                            withdrawal_obj.amount = amount
+                            withdrawal_obj.reference_id = reference_id
+                            withdrawal_obj.save()
+                            wallet.amount = str(int(wallet.amount)-int(withdrawal_obj.amount))
+                            wallet.save()
+                            withdrawal_json = {}
+                            withdrawal_json['id'] = withdrawal_obj.id
+                            withdrawal_json['user'] = withdrawal_obj.user.email
+                            withdrawal_json['amount'] = withdrawal_obj.amount
+                            withdrawal_json['withdrawal_time'] = str(withdrawal_obj.withdrawal_time)
+                            withdrawal_json['wallet_total'] = wallet.amount
+                            withdrawal_json['reference_id'] = withdrawal_obj.reference_id
+                            response = {
+                                    'wallet': withdrawal_json,
+                                    'status': status.HTTP_200_OK
+                                }
+                        else:
+                            response = {
+                                    'wallet': "Your wallet has insufficient amount!!",
+                                    'status': status.HTTP_200_OK
+                                }
+                else:
+                    response = {
+                            'errors': "Wallet is not enabled!!",
+                            'status': status.HTTP_400_BAD_REQUEST
+                            }
+            except Wallet.DoesNotExist:
+                response = {
+                            'errors': "Wallet not found!!",
+                            'status': status.HTTP_400_BAD_REQUEST
+                            }
+        else:
+            response = {
+                        'errors': serializer.errors,
+                        'status': status.HTTP_400_BAD_REQUEST
+                        }
+        return Response(response)
