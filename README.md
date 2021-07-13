@@ -23,8 +23,29 @@
 *admin interface : /admin
 *super user:
  python manage.py createsuperuser
- 
+
  project
  --------
  * In the dashboard you can upload data (xlsx file is used, sample file is attached with email)
  * In Home page you can choose seasons and get corresponding results.
+
+APIs
+----
+    1) Initialize Wallet : http://localhost:8000/api/v1/init/
+    2) Enable Wallet : http://localhost:8000/api/v1/enable-wallet/
+    3) View Wallet : http://localhost:8000/api/v1/view-wallet/
+
+    4) Deposit to Wallet : http://localhost:8000/api/v1/wallet/deposit/
+		request json:
+			{
+			"amount":"100",
+			"reference_id":"1235"
+			}
+    5) Withdraw from Wallet : http://localhost:8000/api/v1/wallet/withdraw/
+		request json:
+			{
+			"amount":"100",
+			"reference_id":"1235"
+			}
+
+    6) Disable Wallet : http://localhost:8000/api/v1/disable-wallet/

@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.dashboard',
-    'apps.matches',
-    'apps.general',
     'el_pagination',
+    'rest_framework.authtoken',
+    'apps.account',
+    'apps.miniwallet',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +139,12 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
+AUTH_USER_MODEL = 'account.CustomUser'
+SITE_ID = 1
